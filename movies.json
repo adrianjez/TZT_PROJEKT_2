@@ -1,0 +1,56 @@
+{ 
+    "_id" : ObjectId("587fb00ad1d97e0bf9e368bb"), 
+    "name" : "M jak Miłość", 
+    "label_image" : "https://upload.wikimedia.org/wikipedia/commons/3/38/M_jak_Mi%C5%82o%C5%9B%C4%87.jpg", 
+    "background_image" : "http://s3.party.pl/newsy/jak-wygladala-rodzina-mostowiakow-w-pierwszych-odcinkach-w-m-jak-milosc-309470-GALLERY_BIG.jpg", 
+    "description" : "William Bradley 'Brad' Pitt is an American actor and film producer. He has received a Golden Globe Award, a Screen Actors Guild Award, and three Academy Award nominations in acting categories", 
+    "gatunek" : "Serial", 
+    "rezyseria" : "Sample ", 
+    "scenariusz" : "Maria Wojtyszko", 
+    "produkcja" : "United States", 
+    "premiera" : "12 lipiec 2016", 
+    "premiera_rok" : NumberInt(2016), 
+    "ocena" : 2.0, 
+    "obsada" : [
+
+    ]
+}
+{ 
+    "_id" : ObjectId("587fc83ddb6f7a1fe7a474e6"), 
+    "name" : "M jak Miłościci", 
+    "label_image" : "https://upload.wikimedia.org/wikipedia/commons/3/38/M_jak_Mi%C5%82o%C5%9B%C4%87.jpg", 
+    "background_image" : "http://s3.party.pl/newsy/jak-wygladala-rodzina-mostowiakow-w-pierwszych-odcinkach-w-m-jak-milosc-309470-GALLERY_BIG.jpg", 
+    "description" : "William Bradley 'Brad' Pitt is an American actor and film producer. He has received a Golden Globe Award, a Screen Actors Guild Award, and three Academy Award nominations in acting categories", 
+    "gatunek" : "Serial", 
+    "rezyseria" : "Sample ", 
+    "scenariusz" : "Maria Wojtyszko", 
+    "produkcja" : "United States", 
+    "premiera" : "12 lipiec 2016", 
+    "premiera_rok" : "2016", 
+    "ocena" : 7.9, 
+    "obsada" : [
+
+    ]
+}
+{ 
+    "_id" : ObjectId("587fd3c654d04f224d54b042"), 
+    "name" : "50 shaders darker", 
+    "label_image" : "https://lh6.googleusercontent.com/-dsnPfzdo49c/AAAAAAAAAAI/AAAAAAAAA9c/DUlmqJLZIMo/s0-c-k-no-ns/photo.jpg", 
+    "background_image" : "https://ocdn.eu/pulscms-transforms/1/03OktkpTURBXy9mODY4OGU3NmUzMjJiMjg5MzAwOTc2YTk0MDc1MzNhMy5qcGeSlQMCRc0CiM0BbJMFzQMgzQHC", 
+    "description" : "A film adaptation of the first book was produced by Focus Features,[2] Michael De Luca Productions, and Trigger Street Productions,[3] with Universal Pictures and Focus Features securing the rights to the trilogy in March 2012.[4] Universal is also the film's distributor. In March 2014, the producer for the first film, Dana Brunetti, had said there were, as of then, no solid plans to make a sequel.[5] The first book of the series was adapted into a film by the same name and released on February 13, 2015. Before the first film premiered, there was still high anticipation from fans for the sequel to the film. After the first film premiered at a special fan screening in New York City on February 6, director Sam Taylor-Johnson announced that the book sequels Fifty Shades Darker and Fifty Shades Freed will also be adapted, with the first to be released in 2016.[6] Right after the announcement, the director was telling Digital Spy that \"it's not my decision, and I haven't been privy to any of the discussions.\"[7]  On March 25, 2015, Taylor-Johnson officially left the franchise.[8] On April 2, 2015, Deadline confirmed that De Luca had left Sony Pictures to return to Universal to produce the Fifty Shades sequels.[9] It was later revealed that Taylor-Johnson would not return to direct the sequel.[10] On April 22, 2015, it was announced that E.L. James' husband, Niall Leonard, would write the script for the sequel.[11] In April 2015, Universal Pictures Chair Donna Langley told The Hollywood Reporter that the second installment will be \"more of a thriller.\"[12] In July 2015, it was confirmed that singer Rita Ora would be returning for the sequel to portray her role of Mia Grey.[13] On August 20, 2015, it was revealed by Deadline that James Foley was the front-runner to direct the sequel and third film Fifty Shades Freed, while the studio was also eyeing some other directors including Rebecca Thomas, Mark Pellington, and Tanya Wexler, and talks with Foley had not yet begun.[14] On November 12, 2015, TheWrap confirmed that Foley would direct both sequels which would be shot back-to-back in 2016, with Michael De Luca and Brunetti returning to produce along with E.L. James.[15] Dakota Johnson and Jamie Dornan also would return for the sequels.", 
+    "gatunek" : "Erotic Drama", 
+    "rezyseria" : "James Foley", 
+    "scenariusz" : "Michael De Luca", 
+    "produkcja" : "United States", 
+    "premiera" : "February 10, 2017", 
+    "premiera_rok" : "2017", 
+    "ocena" : 10, 
+    "obsada" : [
+        ObjectId("5881247fd1d97e12f444bff5"), 
+        ObjectId("5881247fd1d97e12f444bff6"), 
+        ObjectId("5881247fd1d97e12f444bff7"), 
+        ObjectId("5881247fd1d97e12f444bff8"), 
+        ObjectId("5881247fd1d97e12f444bff9"), 
+        ObjectId("5881247fd1d97e12f444bffa")
+    ]
+}
