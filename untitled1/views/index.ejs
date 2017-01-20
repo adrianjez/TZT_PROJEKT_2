@@ -3,9 +3,49 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+
+    <a href="/actors">Actors</a><br>
+    <a href="/movies">Movies</a><br>
+    <h3>Inne</h3>
+
+    <div class="row">
+      <a href="/movies/movies-table-gt" style="color:white">
+        <div class="btn btn-primary col-xs-12 col-sm-6 col-md-3 col-lg-2">Lista filmów z conajmniej dwoma aktorami</div>
+      </a><br>
+    </div>
+    <br>
+    <div class="row">
+        <a href="/movies/movies-table-rate-grater" style="color:white">
+            <div class="btn btn-primary col-xs-12 col-sm-6 col-md-3 col-lg-2">Lista filmów z oceną powyżej 3.0</div>
+        </a><br>
+    </div>
+    <br>
+    <div class="row">
+        <a href="/movies/movies-table-rate-sorted" style="color:white">
+            <div class="btn btn-primary col-xs-12 col-sm-6 col-md-3 col-lg-2">Lista filmów posortowanych według oceny</div>
+        </a><br>
+    </div>
+    <br>
+
+    <div class="row">
+        <a href="/actors/soltero" style="color:white">
+            <div class="btn btn-primary col-xs-12 col-sm-6 col-md-3 col-lg-2">Aktorzy ktorzy sa singlami</div>
+        </a><br>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <a href="/movies/year_16_estados_unidos" style="color:white">
+            <div class="btn btn-primary col-xs-12 col-sm-6 col-md-3 col-lg-2">Lista filmow wypremierowanych w
+                <br>2016 produkcji Stan zjednoczonych</div>
+        </a><br>
+    </div>
+
   </body>
 </html>
