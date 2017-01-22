@@ -199,7 +199,7 @@ router.get('/movies-table-gt', function (req, res, next) {
                 data.items = items;
                 db.close();
                 res.render('movies_list', data);
-        })
+            })
     });
 });
 
@@ -341,7 +341,7 @@ router.get('/three_rezysers_with_best_rated_movies', function (req, res, next) {
                 }
             },
 
-             //Stage 3
+            //Stage 3
             {
                 $match: {
                     _id:{'$ne':null}
