@@ -10,7 +10,7 @@ var assert = require('assert');
 var stringify = require('json-stringify-safe');
 var urlencodedParser = bodyParser.urlencoded({extended: true});
 var router = express.Router();
-var mongoDbURL = 'mongodb://localhost:27017/projekt2';
+var mongoDbURL = 'mongodb://testuser:test@ds117189.mlab.com:17189/adrian_db';
 
 /** Helper methods **/
 
@@ -96,7 +96,7 @@ router.post('/add', urlencodedParser, function (req, res) {
             actor.description = req.body.actor_description;
             actor.dob = req.body.actor_dob;
             actor.country = req.body.actor_country;
-            actor.height = req.body.actor_height;
+            actor.height = parseFloat(req.body.actor_height);
             actor.spouse = req.body.actor_spouse;
             actor.children = req.body.actor_children;
             actor.image = req.body.actor_image;
@@ -113,7 +113,7 @@ router.post('/add', urlencodedParser, function (req, res) {
             actor.description = req.body.actor_description;
             actor.dob = req.body.actor_dob;
             actor.country = req.body.actor_country;
-            actor.height = req.body.actor_height;
+            actor.height = parseFloat(req.body.actor_height);
             actor.spouse = req.body.actor_spouse;
             actor.children = req.body.actor_children;
             actor.image = req.body.actor_image;
