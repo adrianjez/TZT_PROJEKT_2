@@ -237,7 +237,7 @@ router.get('/year_16_estados_unidos', function (req, res, next) {
     MongoClient.connect(mongoDbURL, function (err, db) {
         var data = {};
         db.collection('movies')
-            .find({$and:[{produkcja: {$in: ["United States"]}},{premiera_rok: {$gt: 1992}}]})
+            .find({$and:[{produkcja: {$in: ["United States"]}},{premiera_rok: {$gt: 2016}}]})
             .sort({"ocena" : 1})
             .toArray(function (err, items) {
                 data.items = items;
@@ -247,5 +247,194 @@ router.get('/year_16_estados_unidos', function (req, res, next) {
     });
 });
 
+//seriale_po_2016_roku
+router.get('/seriale_lub_horrory_w_2016_roku', function (req, res, next) {
+    MongoClient.connect(mongoDbURL, function (err, db) {
+        var data = {};
+        db.collection('movies')
+            .find({$and:[{gatunek: {$in: ["Serial", "Horror"]}},{premiera_rok: {$eq: 2016}}]})
+            .sort({"ocena" : 1})
+            .toArray(function (err, items) {
+                data.items = items;
+                db.close();
+                res.render('movies_list', data);
+            })
+    });
+});
+
+
+/***********************************************************************************************************************
+ *                                              AGREGACJE
+ **********************************************************************************************************************/
+
+
+//average_movie_rate_in_particular_years
+router.get('/average_movie_rate_in_particular_years', function (req, res, next) {
+    MongoClient.connect(mongoDbURL, function (err, db) {
+        var col = db.collection('movies');
+
+        col.aggregate([
+            // Stage 1
+            {
+                $group: {
+                    _id: "$premiera_rok",
+                    AvgRate : { $avg : "$ocena" },
+                    Count : { $sum : 1}
+
+                }
+            },
+
+            // Stage 2
+            {
+                $project: {
+                    _id:1, AvgRate:1, Count: 1
+                }
+            },
+
+            // Stage 3
+            {
+                $match: {
+                    _id:{'$ne':null}
+                }
+            },
+
+            // Stage 4
+            {
+                $sort: {
+                    AvgRate:-1
+                }
+            }
+
+        ]).toArray(function (err, result) {
+            var str = 'Srednio oceniane filmy w poszczególnych latach: \n'+
+                'Ilość rekordów: ' + result.length + '\n';
+
+
+            for(var i=0; i<result.length; i++) {
+                str += 'Rok: '+ result[i]._id + ',\t Srednia ocena:'+ result[i].AvgRate + ',\t Liczba filmow:' + result[i].Count + '\n' ;
+            }
+            res.end(str);
+        })
+    });
+});
+
+
+
+//three_rezysers_with_best_rated_movies
+router.get('/three_rezysers_with_best_rated_movies', function (req, res, next) {
+    MongoClient.connect(mongoDbURL, function (err, db) {
+        var col = db.collection('movies');
+
+        col.aggregate([
+            // Stage 1
+            {
+                $group: {
+                    _id: "$rezyseria",
+                    Rate : { $avg : "$ocena"}
+                }
+            },
+
+            // Stage 2
+            {
+                $project: {
+                    _id:1, Rate:1
+                }
+            },
+
+             //Stage 3
+            {
+                $match: {
+                    _id:{'$ne':null}
+                }
+            },
+
+            // Stage 4
+            {
+                $sort: {
+                    Rate:-1
+                }
+            },
+            //Stage 5
+            {
+                $limit: 3
+            }
+
+        ]).toArray(function (err, result) {
+            var str = 'Lista reżyserów z najlepiej ocenianymi filmami: \n'+
+                'Ilość rekordów: ' + result.length + '\n';
+
+
+            for(var i=0; i<result.length; i++) {
+                str += 'Rezyseria: '+ result[i]._id + ',\t Srednia ocena:'+ result[i].Rate + '\n' ;
+            }
+            res.end(str);
+        })
+    });
+});
+
+
+//movies_with_three_or_more_actors
+router.get('/movies_with_three_or_more_actors', function (req, res, next) {
+    MongoClient.connect(mongoDbURL, function (err, db) {
+        var col = db.collection('actors');
+
+        col.aggregate([
+            {
+                $unwind: "$obsadaIDS"
+            },
+            {
+                $lookup: {
+                    "from": "obsadaIDS",
+                    "localField": "obsadaIDS",
+                    "foreignField": "_id",
+                    "as": "cast"
+                }
+            }/*,
+
+            // Stage 1
+            {
+                $match: {
+                    country : "United States",
+                    name: {
+                        $ne: "Brad Pitt"
+                    }
+                }
+            },
+            // Stage 2
+            {
+                $project: {
+                    _id: 1, country: 1, name: 1, height: 1
+                }
+            },
+            // Stage 3
+            {
+                $sort: {
+                    height : -1
+                }
+            },
+            // Stage 4
+            {
+                $limit: 3
+            },
+            //Stage 5
+            {
+                $project: {
+                    _id: 0, country: 1, name: 1, height: 1
+                }
+            }*/
+
+        ]).toArray(function (err, result) {
+            /*var str = 'Trzech najwyższych aktorow ze stanow nie licząc Brada Pitta: \n'+
+                'Ilość rekordów: ' + result.length + '\n';
+
+
+            for(var i=0; i<result.length; i++) {
+                str += 'Nazwa kraju: '+ result[i]._country + ',\t Aktor:'+ result[i].name + ',\t Wzrost:' + result[i].height + '\n' ;
+            }
+            res.end(str);*/
+            res.end(stringify(err));
+        })
+    });
+});
 module.exports = router;
 

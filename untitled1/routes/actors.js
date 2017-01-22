@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 
+var stringify = require('json-stringify-safe');
 var urlencodedParser = bodyParser.urlencoded({extended: true});
 var router = express.Router();
 var mongoDbURL = 'mongodb://localhost:27017/projekt2';
@@ -174,6 +175,141 @@ router.get('/soltero', function (req, res, next) {
     });
 });
 
+
+router.get('/actors_with_height_lower_than_180_and_have_children', function (req, res, next) {
+    MongoClient.connect(mongoDbURL, function (err, db) {
+        var data = {};
+        db.collection('actors')
+            .find({$and:[{height: {$lt: 180}},{ $where: "this.spouse.length != 0" }]})
+            .toArray(function (err, items) {
+                data.items = items;
+                db.close();
+                res.render('movies_list', data);
+            })
+    });
+});
+
+
+//brad_pit_vives_from_united_states
+router.get('/actors_with_height_lower_than_180_and_have_children', function (req, res, next) {
+    MongoClient.connect(mongoDbURL, function (err, db) {
+        var data = {};
+        db.collection('actors')
+            .find({$and:[{spouse: {$eq: "Brad Pitt"}},{country: {$eq: "United States"}}]})
+            .toArray(function (err, items) {
+                data.items = items;
+                db.close();
+                res.render('movies_list', data);
+            })
+    });
+});
+
+/***********************************************************************************************************************
+ *                                              AGREGACJE
+ ***********************************************************************************************************************
+ */
+
+/** Liczba aktorów w krajach **/
+router.get('/average_height_in_country', function (req, res, next) {
+    MongoClient.connect(mongoDbURL, function (err, db) {
+        var col = db.collection('actors');
+
+        col.aggregate([
+            // Stage 1
+            {
+                $group: {
+                    _id: "$country",
+                    AvgHeight : { $avg : "$height" },
+                    Count : { $sum : 1}
+
+                }
+            },
+
+            // Stage 2
+            {
+                $project: {
+                    _id:1, AvgHeight:1, Count: 1
+                }
+            },
+
+            // Stage 3
+            {
+                $match: {
+                    _id:{'$ne':null}
+                }
+            },
+
+            // Stage 4
+            {
+                $sort: {
+                    AvgHeight:-1
+                }
+            }
+
+        ]).toArray(function (err, result) {
+            var str = 'Sredni wzrost aktora w danym kraju: \n'+
+                'Ilość rekordów: ' + result.length + '\n';
+
+
+            for(var i=0; i<result.length; i++) {
+                str += 'Nazwa kraju: '+ result[i]._id + ',\t Sredni wzrost:'+ result[i].AvgHeight + ',\t Liczba aktorow:' + result[i].Count + '\n' ;
+            }
+            res.end(str);
+        })
+    });
+});
+
+
+//3_highests_actors_from_united_states
+router.get('/3_highests_actors_from_united_states', function (req, res, next) {
+    MongoClient.connect(mongoDbURL, function (err, db) {
+        var col = db.collection('actors');
+
+        col.aggregate([
+            // Stage 1
+            {
+                $match: {
+                    country : "United States",
+                    name: {
+                        $ne: "Brad Pitt"
+                    }
+                }
+            },
+            // Stage 2
+            {
+                $project: {
+                    _id: 1, country: 1, name: 1, height: 1
+                }
+            },
+            // Stage 3
+            {
+                $sort: {
+                    height : -1
+                }
+            },
+            // Stage 4
+            {
+                $limit: 3
+            },
+            //Stage 5
+            {
+                $project: {
+                    _id: 0, country: 1, name: 1, height: 1
+                }
+            }
+
+        ]).toArray(function (err, result) {
+            var str = 'Trzech najwyższych aktorow ze stanow nie licząc Brada Pitta: \n'+
+                'Ilość rekordów: ' + result.length + '\n';
+
+
+            for(var i=0; i<result.length; i++) {
+                str += 'Nazwa kraju: '+ result[i].country + ',\t Aktor:'+ result[i].name + ',\t Wzrost:' + result[i].height + '\n' ;
+            }
+            res.end(str);
+        })
+    });
+});
 
 module.exports = router;
 
